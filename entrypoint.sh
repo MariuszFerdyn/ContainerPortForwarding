@@ -2,7 +2,8 @@
 
 # Use sysctl to enable IP forwarding instead of writing to read-only filesystem
 sysctl -w net.ipv4.ip_forward=1
-iptables -t filter -A FORWARD -j ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -t nat -A POSTROUTING -j MASQUERADE
 
 # Function to add iptables port forwarding
 add_port_forward() {
