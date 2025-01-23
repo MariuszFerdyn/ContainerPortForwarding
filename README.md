@@ -13,8 +13,12 @@ WEBHOOKAFTERSTART informs that container started and it is optional.
 
 # Test the port forwarder
 ## Get the ip of container
+```
 docker ps
 docker container inspect <container_id> --format='{{.NetworkSettings.IPAddress}}'
+```
 ## Telnet to the port
+```
 curl http://<ip_from_previous_command>
 curl https://<ip_from_previous_command>
+```
