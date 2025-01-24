@@ -10,15 +10,12 @@ add_port_forward() {
     local remote_host=$1
     local remote_port=$2
     local local_port=$3
-
     # NAT rules
-    iptables -t nat -A PREROUTING -p tcp --dport "$local_port" -j DNAT --to-destination "$remote_host:$remote_port"
+    iptables -t nat -A PREROUTING -p tcp --dport "$local_port" -j DNAT --to-destination "$remote_host:$remote_port" -m addrtype --dst-type LOCAL
+    iptables -A FORWARD -p tcp -d "$remote_host" --dport "$remote_port" -j ACCEPT
     iptables -t nat -A POSTROUTING -p tcp -d "$remote_host" --dport "$remote_port" -j MASQUERADE
-
-    # Allow incoming connections on the specific local port
-    iptables -A INPUT -p tcp --dport "$local_port" -j ACCEPT
-    iptables -A FORWARD -p tcp --dport "$remote_port" -j ACCEPT
 }
+
 # Find and process all port forward configurations
 env | grep -E "^REMOTE_HOST[0-9]*=" | while IFS='=' read -r remote_host_var remote_host; do
     # Extract the numeric suffix
