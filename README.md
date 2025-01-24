@@ -1,9 +1,10 @@
 # ContainerPortForwarding
 The primary feature of this project is its ability to forward incoming requests from a specified port on the host to a designated port on a target IP address. Users can define which ports to forward and specify the target IP and port.
 
-# Build the conatiner
+# Build the conatiner or download
 ```
 docker build -t port-forwarder .
+docker pull mafamafa/port-forwarder:202501241337
 ```
 # Run The container
 ```
