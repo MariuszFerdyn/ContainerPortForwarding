@@ -33,4 +33,5 @@ curl: (35) error:0A000410:SSL routines::sslv3 alert handshake failure
 ## Debug in case of TCPDUMP
 ```
 docker exec -it port-forwarder /bin/bash
+tcpdump
 ```
